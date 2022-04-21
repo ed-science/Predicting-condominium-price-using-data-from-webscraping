@@ -37,10 +37,10 @@ def get_all_links(driver):
     return links
 
 # Run and store the links in district_links
-start_time = datetime.now() 
+start_time = datetime.now()
 district_links=get_all_links(driver)
-time_elapsed = datetime.now() - start_time 
-print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
+time_elapsed = datetime.now() - start_time
+print(f'Time elapsed (hh:mm:ss.ms) {time_elapsed}')
 
 # Check the length of 'district_links', there are 50 districts in Bangkok. 
 # https://en.wikipedia.org/wiki/List_of_districts_of_Bangkok
@@ -57,8 +57,8 @@ for district in district_links:
     driver.implicitly_wait(10)
     driver.get(district)
     condo_links.append(get_all_links(driver))
-    time_elapsed = datetime.now() - start_time 
-    print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
+    time_elapsed = datetime.now() - start_time
+    print(f'Time elapsed (hh:mm:ss.ms) {time_elapsed}')
 print("completed")
 
 # Now we got lists within a list (nested list)
@@ -66,7 +66,7 @@ print("completed")
 # Named as 'condo_links_all'
 from itertools import chain
 condo_links_all=list(chain.from_iterable(condo_links))
-print("Total condo listings = "+str(len(condo_links_all)))
+print(f"Total condo listings = {len(condo_links_all)}")
 # Result in 2566 condo listings
 
 # Dump the retrived links to text file.

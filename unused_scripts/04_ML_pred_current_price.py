@@ -96,7 +96,7 @@ result=[]
 for alpha_val in alpha_list:
     ridge = make_pipeline(RobustScaler(), Ridge(alpha= alpha_val))
     rmse,r_sq_score = rmse_cv(ridge)
-    print('RMS: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+    print('RMS: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
     result.append([alpha_val,np.mean(rmse),r_sq_score])
 ridge_result = pd.DataFrame(result, columns = ['alpha_val','np.mean(rmse)','r_sq_score'])
 ###############################################################################
@@ -135,7 +135,7 @@ grid_search.best_params_
 best_grid = grid_search.best_estimator_
 rf_best = make_pipeline(RobustScaler(), best_grid)
 rmse,r_sq_score = rmse_cv(rf)
-print('RMS: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+print('RMS: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
 ###############################################################################
 param_grid = {
     'learning_rate': [0.05],
@@ -173,7 +173,7 @@ grid_search_GBoost.best_params_
 best_grid_search_GBoost = grid_search_GBoost.best_estimator_
 GBoost_best = make_pipeline(RobustScaler(), best_grid_search_GBoost)
 rmse,r_sq_score = rmse_cv(GBoost_best)
-print('RMS: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+print('RMS: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
 
 #GBoost = GradientBoostingRegressor(n_estimators=3000, learning_rate=0.05,
 #                                   max_depth=4, max_features='sqrt',

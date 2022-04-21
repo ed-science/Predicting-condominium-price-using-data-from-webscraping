@@ -75,15 +75,15 @@ def rmse_cv(model,n_folds=5):
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     r_sq_score = r2_score(y_test, y_pred)
-    plt.scatter(y_test, y_pred)    
+    plt.scatter(y_test, y_pred)
     plt.title(model)
     plt.xlabel("True prices")
-    plt.ylabel("Predicted prices")  
+    plt.ylabel("Predicted prices")
 #    plt.text(-1,220000, ' R-squared = {}'.format(float(cv_scores.mean())))
 #    plt.text(-1,200000, ' R-squared Std = {}'.format(float(cv_scores.std())))
 #    plt.text(-1,180000, ' MSE = {}'.format(round(float(mean_squared_error(y_test, predicted)), 2)))
     plt.show()
-    print('RMSE: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+    print('RMSE: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
     return(rmse, r_sq_score)
 ###############################################################################
 ols = make_pipeline(RobustScaler(), LinearRegression())
@@ -149,7 +149,7 @@ best_grid = grid_search.best_estimator_
 # run the model using best params
 rf_best = make_pipeline(RobustScaler(), best_grid)
 rmse,r_sq_score = rmse_cv(rf)
-print('RMSE: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+print('RMSE: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
 ###############################################################################
 param_grid = {
     'learning_rate': [0.05],
@@ -187,7 +187,7 @@ grid_search_GBoost.best_params_
 best_grid_search_GBoost = grid_search_GBoost.best_estimator_
 GBoost_best = make_pipeline(RobustScaler(), best_grid_search_GBoost)
 rmse,r_sq_score = rmse_cv(GBoost_best)
-print('RMSE: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+print('RMSE: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')
 
 ###############################################################################
 # fine tune the model
@@ -227,4 +227,4 @@ grid_search_GBoost.best_params_
 best_grid_search_GBoost = grid_search_GBoost.best_estimator_
 GBoost_best = make_pipeline(RobustScaler(), best_grid_search_GBoost)
 rmse,r_sq_score = rmse_cv(GBoost_best)
-print('RMSE: {:.2f}'.format(rmse.mean()),'r2_score: '+ str(r_sq_score))
+print('RMSE: {:.2f}'.format(rmse.mean()), f'r2_score: {str(r_sq_score)}')

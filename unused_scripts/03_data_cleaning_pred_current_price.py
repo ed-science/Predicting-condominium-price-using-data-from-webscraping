@@ -57,14 +57,12 @@ def find_dist(input_str):
     input_str = str(input_str)
     dist = re.findall(r"[-+]?\d*\.\d+|[-+]?\d+", input_str)[0]
     unit = re.findall(r" km ", input_str)
-    if (len(unit)!=0): dist_km = float(dist)
-    else: dist_km = float(dist)/1000
-    return(dist_km)
+    return float(dist) if (len(unit)!=0) else float(dist)/1000
     
 #check shop col
 df['shops']=df['shops'].str.replace('\'','').str.split('\,')
 df['shops'][0]
-col_list = ['dist_shop_'+str(i) for i in range(1, 6)]
+col_list = [f'dist_shop_{str(i)}' for i in range(1, 6)]
 # expand list into its own dataframe
 df[col_list]= df['shops'].apply(pd.Series)
 # loop all columns, result in distance (km)
@@ -75,7 +73,7 @@ df['schools']=df['schools'].str.replace('\"','\'').str.split('\', \'')
 df['schools'][0]
 len_school = df['schools'].apply(lambda x: len(x))
 # expand list into its own dataframe
-col_list = ['dist_school_'+str(i) for i in range(1, 6)]
+col_list = [f'dist_school_{str(i)}' for i in range(1, 6)]
 df[col_list]= df['schools'].apply(pd.Series)
 # loop all columns, result in distance (km)
 for col in col_list: df[col]=df[col].apply(lambda x: find_dist(x))
@@ -83,7 +81,7 @@ for col in col_list: df[col]=df[col].apply(lambda x: find_dist(x))
 #check restaurants col
 df['restaurants']=df['restaurants'].str.replace('\"','\'').str.split('\', \'')
 df['restaurants'][0]
-col_list = ['dist_food_'+str(i) for i in range(1, 6)]
+col_list = [f'dist_food_{str(i)}' for i in range(1, 6)]
 # expand list into its own dataframe
 df[col_list]= df['restaurants'].apply(pd.Series)
 # loop all columns, result in distance (km)
@@ -119,14 +117,14 @@ len_chk = df['transportation'].apply(lambda x: len(x))
 df['transportation'][0]
 
 # element number 0,3,6,9,12 are station types
-col_list = ['tran_type'+str(i) for i in range(1, 6)]
+col_list = [f'tran_type{str(i)}' for i in range(1, 6)]
 df[col_list]= df['transportation'].apply(pd.Series).iloc[:,[0,3,6,9,12]]
 for col in col_list: df[col]=df[col].apply(lambda x: re.findall("(expressway|mrt|bts)", x)[0])
 # element number 1,4,7,10,13 are station names
-col_list = ['tran_name'+str(i) for i in range(1, 6)]
+col_list = [f'tran_name{str(i)}' for i in range(1, 6)]
 df[col_list]= df['transportation'].apply(pd.Series).iloc[:,[1,4,7,10,13]].apply(lambda x: x.str.strip())
 # element number 2,5,8,11,14 are distance to station
-col_list = ['dist_tran_'+str(i) for i in range(1, 6)]
+col_list = [f'dist_tran_{str(i)}' for i in range(1, 6)]
 # expand list into its own dataframe
 df[col_list]= df['transportation'].apply(pd.Series).iloc[:,[2,5,8,11,14]]
 # loop all columns, result in distance (km)

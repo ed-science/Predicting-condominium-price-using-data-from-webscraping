@@ -83,12 +83,12 @@ def rmse_cv(model,n_folds=5):
     y_pred = model.predict(X_test)
     rmse_test = np.sqrt(mean_squared_error(y_test, y_pred))
     r2_test = r2_score(y_test, y_pred)
-    plt.scatter(y_test, y_pred)    
+    plt.scatter(y_test, y_pred)
     plt.title(model)
     plt.xlabel("True prices")
-    plt.ylabel("Predicted prices")  
+    plt.ylabel("Predicted prices")
     plt.show()
-    print('RMSE test: {:.2f}'.format(rmse_test),'r2_score test: '+ str(r2_test))
+    print('RMSE test: {:.2f}'.format(rmse_test), f'r2_score test: {str(r2_test)}')
     return(rmse_train,r2_train,rmse_test, r2_test)
 ###############################################################################
 ols = make_pipeline(RobustScaler(), LinearRegression())
@@ -159,7 +159,7 @@ best_grid = grid_search.best_estimator_
 # run the model using best params
 rf_best = make_pipeline(RobustScaler(), best_grid)
 rmse_train,r2_train,rmse_test, r2_test = rmse_cv(rf)
-print('RMSE test: {:.2f}'.format(rmse_test),'r2_score test: '+ str(r2_test))
+print('RMSE test: {:.2f}'.format(rmse_test), f'r2_score test: {str(r2_test)}')
 
 # run with best parameters
 rf_best = make_pipeline(RobustScaler(), 
@@ -211,7 +211,7 @@ grid_search_GBoost.best_params_
 best_grid_search_GBoost = grid_search_GBoost.best_estimator_
 GBoost_best = make_pipeline(RobustScaler(), best_grid_search_GBoost)
 rmse_train,r2_train,rmse_test, r2_test = rmse_cv(GBoost_best)
-print('RMSE test: {:.2f}'.format(rmse_test),'r2_score test: '+ str(r2_test))
+print('RMSE test: {:.2f}'.format(rmse_test), f'r2_score test: {str(r2_test)}')
 # run with best parameters
 GBoost_best = make_pipeline(RobustScaler(), 
                         GradientBoostingRegressor(

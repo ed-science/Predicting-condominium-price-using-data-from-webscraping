@@ -5,6 +5,7 @@ Created on Sat Mar 23 11:41:39 2019
 @author: Chris
 """
 
+
 # import packages
 
 from datetime import datetime
@@ -118,13 +119,13 @@ for i in range(nrows):
     date_value_df['id'] = i
     this_id_df = pd.merge(df,date_value_df,how='right',on='id')
     temp_df = pd.concat([temp_df,this_id_df],sort=True)
-    if(i%100==0 or i == nrows-1):
+    if (i%100==0 or i == nrows-1):
         temp_df.to_csv(".\df_clean\df_"+str(i)+".csv" ,\
                        header=temp_df.columns,\
                        index=False, encoding='utf-8-sig')
         temp_df = pd.DataFrame(columns=df.columns)
         time_elapsed = datetime.now() - start_time
-        print(str(i)+' Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
+        print(str(i) + f' Time elapsed (hh:mm:ss.ms) {time_elapsed}')
 
 #combine all chunks
 import os
@@ -132,7 +133,7 @@ import glob
 os.chdir(r"D:\GitHub_Personal\2019-01-Web-Scraping-using-selenium-and-bs4\df_clean")
 
 extension = 'csv'
-all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
+all_filenames = list(glob.glob(f'*.{extension}'))
 #combine all files in the list
 combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
 
